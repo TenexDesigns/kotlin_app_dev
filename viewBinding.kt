@@ -1,3 +1,11 @@
+// Note --- To be able to use view binding you need to enable it in the app leve gradel   i.e build.gradle by adding this  
+//within the android scope//           buildFeatures{
+                                                   viewBinding true
+                                                    }
+
+
+
+
 class MainActivity:AppCompatActivity() {
   
   //Create a variable of the type of the xml activity you want to buid a view for.
