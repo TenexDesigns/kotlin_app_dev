@@ -63,6 +63,23 @@ As of android api 26, the only possible and recommended way is the dynamicallly 
 
 
 
+Now ,we regetster the receiver in the activity ,it can be the main activity
+Now ,we need to create an object of the receiver 
+private lateinit var  receiver: Receiver              | or        private lateinit var  receiver = Receiver()
+receiver = Receiver()                                 | or
+
+Now we need to filter the intents (intent is an event of intrest we want to respond to e.g device startint)
+To filter the intents we ndde to use the IntentFlter method
+In the intent filter method we use the intent class to choose an intent we would like to respond to
+The intent class (Intent.) has many system generated intents we can respond to, e.g
+             Intent.ACTION_AIRPLANE_MODE_CHANGED
+             Intent.ACTION_BATTERY_LOW
+             Intent.ACTION_SCREEN_OFF
+Now we need to regetser the receiver we use the registerReceiver(receiver,it,) function which takes the receiver and the intent filter as arguments .We use the also scope function to prevent memory leaks
+The scope functions are used on objects .Within the also function ,the object is refured to using it.
+In the regesterReceiver function wepass the receiver and the intent filter (refered to using it) are arguments.
+Finally after the app activity is being stoped we use the onStop metthod to unregester the receiver using the Unregster function and passing in the receiver as an afgument.
+
 
 class MainActivity:AppCompatActivity() {
     private lateinit var  receiver: Receiver
