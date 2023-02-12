@@ -16,14 +16,48 @@ SQLite database
 LESSON 1: ----->   How to Create A sqlite data base in android
 
 
-to create a database you nedd to create a class  with the parameter of type of context(you can name the variable anthing).
+ ------>   To create a database you need to create a class  with the parameter of type of context (you can name the variable anthing).
 class Database(context:Context)  or class Database( var_context:Context)
+               ------   -----
+           var-name     type
 
-Then you need to make the class extend the SQLiteOpenHelper() classs ,this class is what will enable you to make the database.
+------>   Then you need to make the class extend the SQLiteOpenHelper() classs ,this class is what will enable you to make the database.
 class Database(context:Context): SQLiteOpenHelper() 
 
-Then now you need to overide some basic functions of the SQLiteOpenHelper() class i.e
-class Database(context:Context): SQLiteOpenHelper() {
+
+
+------> Within this SQLiteOpenHelper() ,we need to pass four arguments
+  1. First is the ---context
+  2. Next is the --- database name
+  3.Then we give the --- factory                           //We pass null as a paremeter because we want to avoid the overide method
+  4. Finally we give --- database version
+
+
+To create database name within the class as a variable we use a companion object
+
+class Database(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION){
+    
+    companion object{
+        private var DATABASE_NAME = "Studends.db"
+        private var DATABASE_VERSION =1
+   
+    }
+
+}
+
+
+
+
+
+------>Then now you need to overide some basic functions of the SQLiteOpenHelper() class i.e
+
+class Database(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION){
+    
+    companion object{
+        private var DATABASE_NAME = "Studends.db"
+        private var DATABASE_VERSION =1
+   
+    }
 
     override fun onCreate(db: SQLiteDatabase?) {
         TODO("Not yet implemented")
@@ -33,6 +67,85 @@ class Database(context:Context): SQLiteOpenHelper() {
         TODO("Not yet implemented")
     }
 }
+
+
+-----> THen now we have to write the table name and all the column details
+Remember that the sqlite is a relational database that take the table approach of storing data. 
+e.g
+
+                                               studentsResults          <---------- Table name
+.                                         ___________________________     
+.                                        |___id___|__name__|_marks__|   <----- column names     
+.                                        |________|________|________|         
+.                                        |________|________|________|       
+.                                        |________|________|________|
+ So we have to create new variablews within the companion object to identify the table and the column details
+
+class Database(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION){
+    
+    companion object{
+        private var DATABASE_NAME = "Studends.db"
+        private var DATABASE_VERSION =1
+        private var ID =1
+        private var STUDENT_NAME ="name"
+        private var STUDENT_MARKS ="marks"
+   
+    }
+
+    override fun onCreate(db: SQLiteDatabase?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        TODO("Not yet implemented")
+    }
+}
+
+
+------> NOW we have to create the table.We do this in the create function ,because once the database class is called ,the onCreate function is excuted first.
+We use sql language to create this table.This sql prompt or query we,will store it in a variable we will call CREATE_TABLE
+    The sql propt looks like this
+val CREATE_TABLE =  "CREATE TABLE  ${TABLE_NAME}   ( ${ID} INTEGER PRIMARY KEY AUTOINCREMENT, ${STUDENT_NAME} TEXT,${STUDENT_MARKS} INTEGER)"
+                         ------------------------      -------------
+                         This creates a table           Here we write the column names 
+                         of name identied in            and the type of data they wil hold e.g NAME TEXT within brackets
+                         the interisence              
+
+class Database(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION){
+    
+    companion object{
+        private var DATABASE_NAME = "Studends.db"
+        private var DATABASE_VERSION =1
+        private var ID =1
+        private var STUDENT_NAME ="name"
+        private var STUDENT_MARKS ="marks"
+   
+    }
+
+    override fun onCreate(db: SQLiteDatabase?) {  // we use this argument received as a database to create the database
+       val CREATE_TABLE =  "CREATE TABLE  ${TABLE_NAME}   ( ${ID} INTEGER PRIMARY KEY AUTOINCREMENT, ${STUDENT_NAME} TEXT,${STUDENT_MARKS} INTEGER)"
+        db?.execSQL(CREATE_TABLE)                    // we use thE argument received as a database to create the database
+        
+    }
+
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        //If the above database is already created ,we need to drop the old table and upgrade or create a new one
+        var DROP_TABLE ="DROP TABLE IF EXISTS $TABLE_NAME"
+        db.execSQL(DROP_TABLE)
+        onCreate(db)     //and upgrade or create a new one
+        
+    }
+}
+
+
+---------->   Now we will create the function for our CRUD operation.
+   For that we have to create a model class which is used to hold our data 
+
+
+    
+
+
+
 
 
 
