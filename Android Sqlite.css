@@ -1,0 +1,41 @@
+Sqlite is an open source database
+Sqlite supports starndart relational database features
+Sqlite database is a local database i.e it does not require a server to operate.It saves data localy in a text file in the system
+Android come with built in sqlite database implimentation.
+
+
+CRUD OPERATION WITH KOTLIN
+SQLite database 
+1. How to create the data base
+2. How to create helper class
+3.Create table and Select data from table
+4. Insert Update and delete
+
+
+
+LESSON 1: ----->   How to Create A sqlite data base in android
+
+
+to create a database you nedd to create a class  with the parameter of type of context(you can name the variable anthing).
+class Database(context:Context)  or class Database( var_context:Context)
+
+Then you need to make the class extend the SQLiteOpenHelper() classs ,this class is what will enable you to make the database.
+class Database(context:Context): SQLiteOpenHelper() 
+
+Then now you need to overide some basic functions of the SQLiteOpenHelper() class i.e
+class Database(context:Context): SQLiteOpenHelper() {
+
+    override fun onCreate(db: SQLiteDatabase?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        TODO("Not yet implemented")
+    }
+}
+
+
+
+
+To create and upgrade a database in your android application youcreate a subclass of the   SQLiteOPenHelper class.
+In the constructor of your subclass you call the super() method of the SQLiteOPenHelper class
