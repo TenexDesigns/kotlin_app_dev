@@ -148,6 +148,11 @@ class Students {
     var id:Int =0
     var name:String =""
     var marks:String =""
+     
+         constructor(_name:String,_age:Int){
+        this.age =_age
+        this.name = _name
+    }
 
 }
 
@@ -167,42 +172,48 @@ var result =  db.insert(TABLE_NAME,NULL,contentvalue)       // This inser method
                                                             If the result is -1 then the insertion failde ,else the insertion was a succcess
      
      
+     
+     
+     Now we chaeck if the result was succesful or not
+     
+     
+        if(result == -1.toLong()){
+
+            Log.i("Fail","The assignment has failed")
+        }else
+            Log.i("success","The assignment has succeeded")
+
 
     }
 
+Now in the main activity we set fields to receive the data and a button to submit the data
 
 
+        var insert = findViewById<Button>(R.id.insert)
+        var age = findViewById<EditText>(R.id.age)
+        var name = findViewById<EditText>(R.id.name)
+
+We check if the data received from the input fields is valid or empty
+        if(age.text.toString().isNotEmpty() && name.text.toString().isNotEmpty()
+
+If both input fields have valid data ,then we exterxact the data and put it inside the variables
+
+var ageAns =  age.text.toString().toInt()
+var nameAns = name.text.toString()
+
+We pass the above values into the user object
+
+     var user = User(nameAns,ageAns)
 
 
--------> Now within our data base class we have to create a function that will go and get our data from the modal class we created above
-This function will return a List collection of the type of the classs we created above 
+Now we have to call the class we used to create our data base .
+We pass in the context 
+ and use the variable of the class to call the function that will pass the data to the class students to store  our data to.
+     
+     var context = this
 
-              fun getAllTAsk():List<ModelData>
-WE have to make our database writeable
-             val db:SQLiteDatabase = writableDatabase
-
-We have to create a query string to go and fetch our data
-              val selectQuery = "SELECT * FROM $TABLE_NAME"
-
-We have to passs our querry through the method of the db.rawQuery.The data will be returned into a Cursor
-
-              val cursor: Cursor = db.rawQuery(selectQuery,null)
-Now we have to check if there is data within the cursor or it is null
-          if(cursor != null){
-               }
-
-Now if the cursor is not null ,it means that the data set has been return.
-Now we have to fetch the data set using the 
-              cursor.moveToFirst() 
-
-This metod will perform two tasks
-
-       1.Query return empty or retun a data set
-       2. Move the cursor to the first dataset.
-
-
-
-    
+     var db = Database(contex)
+     db.user(user)
 
 
 
@@ -210,5 +221,32 @@ This metod will perform two tasks
 
 
 
-To create and upgrade a database in your android application youcreate a subclass of the   SQLiteOPenHelper class.
-In the constructor of your subclass you call the super() method of the SQLiteOPenHelper class
+
+
+
+
+
+class MainActivity:AppCompatActivity() {
+    private lateinit var  receiver: Receiver
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        var context = this
+
+
+        var insert = findViewById<Button>(R.id.insert)
+        var age = findViewById<EditText>(R.id.age)
+        var name = findViewById<EditText>(R.id.name)
+
+        insert.setOnClickListener {
+            if(age.text.toString().isNotEmpty() && name.text.toString().isNotEmpty()){
+                var user = User(age.text.toString(),name.text.toString().toInt())
+                var db = UsrDataBase(context)
+                db.user(user)
+        }else{
+            Log.i("FAiled","The misssion failed in main activity")}
+
+
+
+
