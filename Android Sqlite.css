@@ -59,11 +59,11 @@ class Database(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null,DAT
    
     }
 
-    override fun onCreate(db: SQLiteDatabase?) {
+    override fun onCreate(db: SQLiteDatabase?) {     // This on create function will be excuted if the device does not contain the database
         TODO("Not yet implemented")
     }
 
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {     //This will be excuted if we have an older version of the database which needs to be upgraded accordingly
         TODO("Not yet implemented")
     }
 }
@@ -86,6 +86,7 @@ class Database(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null,DAT
     companion object{
         private var DATABASE_NAME = "Studends.db"
         private var DATABASE_VERSION =1
+        private var TABLE_NAME = "students"
         private var ID =1
         private var STUDENT_NAME ="name"
         private var STUDENT_MARKS ="marks"
@@ -116,14 +117,16 @@ class Database(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null,DAT
     companion object{
         private var DATABASE_NAME = "Studends.db"
         private var DATABASE_VERSION =1
+        private var TABLE_NAME = "students"
+     
         private var ID =1
-        private var STUDENT_NAME ="name"
-        private var STUDENT_MARKS ="marks"
+        private var COL_NAME ="name"
+        private var COL_MARKS ="marks"
    
     }
 
     override fun onCreate(db: SQLiteDatabase?) {  // we use this argument received as a database to create the database
-       val CREATE_TABLE =  "CREATE TABLE  ${TABLE_NAME}   ( ${ID} INTEGER PRIMARY KEY AUTOINCREMENT, ${STUDENT_NAME} TEXT,${STUDENT_MARKS} INTEGER)"
+       val CREATE_TABLE =  "CREATE TABLE  ${TABLE_NAME}   ( ${ID} INTEGER PRIMARY KEY AUTOINCREMENT, ${COL_NAME} TEXT,${COL_MARKS} INTEGER)"
         db?.execSQL(CREATE_TABLE)                    // we use thE argument received as a database to create the database
         
     }
@@ -138,8 +141,65 @@ class Database(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null,DAT
 }
 
 
----------->   Now we will create the function for our CRUD operation.
-   For that we have to create a model class which is used to hold our data 
+---------->   Now we will createa class that willstore our data for our CRUD operation.
+   For that we have to create a  class which is used to hold our data 
+
+class Students {
+    var id:Int =0
+    var name:String =""
+    var marks:String =""
+
+}
+
+
+
+------> Create a function to inser a student data
+
+
+    fun user(user:Student){
+        val db = this.writableDatabase                      // There are two types of Sqlite databases  i.e the writableDatabase object and the readableDatabase object 
+        val contentvalue = ContentVAlue()                   // To insert into database we need content values 
+         contentvalue.put(COL_NAME,user.name)               // We use the put method to inser values into the database. 
+         contentvalue.put(COL_MARKS,user.age)               // The put method accepts two parameters, the colum the value is to go and the value 
+          db.insert(TABLE_NAME,NULL,contentvalue)           // To the insert method we pass three parameters ,the table name ,null and the content value
+                                                     
+var result =  db.insert(TABLE_NAME,NULL,contentvalue)       // This inser method retuns a row id. We store the row id in a variable
+                                                            If the result is -1 then the insertion failde ,else the insertion was a succcess
+     
+     
+
+    }
+
+
+
+
+
+-------> Now within our data base class we have to create a function that will go and get our data from the modal class we created above
+This function will return a List collection of the type of the classs we created above 
+
+              fun getAllTAsk():List<ModelData>
+WE have to make our database writeable
+             val db:SQLiteDatabase = writableDatabase
+
+We have to create a query string to go and fetch our data
+              val selectQuery = "SELECT * FROM $TABLE_NAME"
+
+We have to passs our querry through the method of the db.rawQuery.The data will be returned into a Cursor
+
+              val cursor: Cursor = db.rawQuery(selectQuery,null)
+Now we have to check if there is data within the cursor or it is null
+          if(cursor != null){
+               }
+
+Now if the cursor is not null ,it means that the data set has been return.
+Now we have to fetch the data set using the 
+              cursor.moveToFirst() 
+
+This metod will perform two tasks
+
+       1.Query return empty or retun a data set
+       2. Move the cursor to the first dataset.
+
 
 
     
