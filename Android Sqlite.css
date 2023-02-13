@@ -246,7 +246,68 @@ class MainActivity:AppCompatActivity() {
                 db.user(user)
         }else{
             Log.i("FAiled","The misssion failed in main activity")}
+         
+         
+         
 
+         
+         TO CREATE READ AND UPDATE DATA IN ANDROID SQLITE
+         
+         
+         We create a function in the classs where we create the data base 
+         
+     class UsrDataBase(context: Context):SQLiteOpenHelper(context, DATABASE_NAME,null, DATABASE_VERSION) {
+    override fun onCreate(db: SQLiteDatabase?) {
+        val CREATE_TABLE =  "CREATE TABLE  ${TABLE_NAME}   ( ${COL_ID} INTEGER PRIMARY KEY AUTOINCREMENT, ${COL_NAME} TEXT,${COL_AGE} INTEGER)"
+        db?.execSQL(CREATE_TABLE)
+        TODO("Not yet implemented")
+         
+         
+         fun readData():MutableList<User>{
+          var list :MutableList<User> = ArrayList()
+           var db = this.readableDataBase
+           val query = "SELECT * from $TABLE_NAME "
+           Rval result = db.rawQuery(query,null)
+           
+           if (result.moveTofirst()){
+            
+                    do{
+                          var user = User()
+                         user.id = result.getString(0).toInt     
+                         user.id = result.getString(result.getColumnIndex()).toInt   //If you dont know the index of the column you can use the method getColumnIndex and pass the column name
+                         user.id = result.getString(0).toInt
+                     list.add(user)
+                      }
+                   while (result.moveToNext())     
+           
+           result.close()
+            db.close()   }
+          
+          
+          
+            To display the data from the data base ,we can use a reda button in the mainActivity
+    class MainActivity:AppCompatActivity() {
+    private lateinit var  receiver: Receiver
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+          
+           var db = UsrDataBase(context)
+          
+          read.setOnclickListener{
+           
+           var data = db.readData
+          
+          
+          }
+          
+          
+
+         
+
+
+         
+         
+         
 
 
 
