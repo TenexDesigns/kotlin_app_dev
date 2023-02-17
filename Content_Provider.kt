@@ -86,6 +86,26 @@ After receiving a request, ContentProvider process it and returns the desired re
 CREATING A CONTENT PROVIDER
 
 Create a class that extends ContentProvider() class.
+Create a content URI to access the content.
+Create a database to store the application data.
+Implement the six compulsory abstruct methods of the ContentProvider class.
+Register the content provider in AndroidManifest.xml file using <provider> tag.
+
+
+
+
+THE SIX ABSTRACT METHODS OF THE CONTENTPROVIDER CLASS.
+
+
+
+Abstract Method                              Description
+
+query()
+
+
+
+
+.
 
 
 
