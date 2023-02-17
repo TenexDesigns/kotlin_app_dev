@@ -33,13 +33,14 @@ Content URI is used as a query string.
 STRUCTURE OF CONTENT URI
 
       content://authority/optionalPath/optionalID
-
+         
+       val PROVIDER_NAME = "any name"
      e.g val URL = "content://$PROVIDER_NAME/users"
 
 DETAILES OF DIFFERY PARTS OF THE CONTENT URI
 
 --> content:// – Mandatory part of the URI as it represents that the given URI is a Content URI.
---> authority – Signifies the name of the content provider like contacts, browser, etc. This part must be unique for every content provider.
+--> authority – Signifies the name/string  of the content provider like contacts, browser, etc. This part must be unique for every content provider.
 --> optionalPath – Specifies the type of data provided by the content provider. It is essential as this part helps content providers to support different types of data that are not related to each other like audio and video files.
 --> optionalID – It is a numeric value that is used when there is a need to access a particular record.
 
@@ -100,16 +101,23 @@ THE SIX ABSTRACT METHODS OF THE CONTENTPROVIDER CLASS.
 
 Abstract Method                              Description
 
-query()
+query()                                      A method that accepts arguments and fetches the data from the                                	
+                                             desired table. Data is retired as a cursor object.
+	
+insert()                                     To insert a new row in the database of the content provider. 
+                                             It returns the content URI of the inserted row.
 
+ update()                                    This method is used to update the fields of an existing row. 
+                                             It returns the number of rows updated.
 
+delete()                                     This method is used to delete the existing rows. 
+                                             It returns the number of rows deleted.	
 
+getType()                                    This method returns the Multipurpose Internet Mail Extension(MIME)    
+                                             MIME i.e--> type of data to the given Content URI.
 
-.
-
-
-
-
+onCreate()                                   As the content provider is created, the android system calls 
+                                             this method immediately to initialise the provider.
 
 
   
