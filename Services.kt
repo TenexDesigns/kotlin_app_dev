@@ -68,6 +68,9 @@
 
 
                                   The service
+         To create a service ,go to a separate file and create a class file.
+         This class file will extend the Service() class.
+  
         Here we use the MediaPALyer class to play and stop the ringtone
                                   
                                   
@@ -93,14 +96,16 @@
 
 
     override fun onBind(intent: Intent?): IBinder? {                // It is compulsory to overide this function in all servicess
-        return null
+                                                                    // It is necessay if other components want to connect with this service
+        return null                                                 // How ever if you have no intention of connectiong to other components e.g in the case of a stared service, then you can just return null.
 
     }
 
 
 }
-     
-     
+     Intent service                                                                         Service
+     Run on a separate thread automaticaly ,so it wont block the main thread                Runs on main thread by default,so allways start its excution on a separate thread
+     It does'nt support multithreading.                                                     It supports multi threading
      
      
      
