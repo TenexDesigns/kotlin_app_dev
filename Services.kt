@@ -58,11 +58,25 @@
 
 ***        start.setOnClickListener {
                 startService(Intent(this@MainActivity,MyService::class.java))               // focus here mostly --- This is where the service is started
-        }
+                   or do this to start the service
+               Intent(this,MyService::class.java).aslo{
+                       startService(it)
+                }
+}
 
 ***        stop.setOnClickListener {
                  stopService(Intent(this@MainActivity,MyService::class.java))                 // focus here mostly --- This is where the service is stopped
         }
+               To send data from th activity to the service we can
+
+               Intent(this,MyService::class.java).aslo{
+                val data = inputButton.text.toString()
+ Intent or //   it.putExtra("Data_name",data)
+                       startService(it)
+                }
+
+
+
 
 
 
@@ -104,15 +118,37 @@
 
 }
      Intent service                                                                         Service
-     Run on a separate thread automaticaly ,so it wont block the main thread                Runs on main thread by default,so allways start its excution on a separate thread
+     Run on a separate thread automaticaly ,so it wont block the main thread                Runs on main thread by default,so program it to  start its excution on a separate thread
      It does'nt support multithreading.                                                     It supports multi threading
+                                                                                             --->To start a separeate thread in a serivcie do this for that function that will take a long time,[within the OnStartCommand)
+                                                                                              Thread {
+                                                                                                       //WRITE ALL THAT CODE HERE
+                                                                                                     }.start()
      
-     
-     
-     
-     
-     
-     
+      class MyService: Service() {
+      
+      override fun onStartCommand(initent:Intent?, flag:Int, startId:Int):Int {   //This is where excution of the service startswhen the service is called
+                   val data =intent?.getEtraString("Data_NAme")                 // This function receives an intent as a parameter.This intent parameter contains data that is meant to be received by the service from the activity or fragment.
+                                                                                 //We have to name the receiving value we are getting
+                     return START_STICKY
+                   }
+                   
+                   To receive the sta from the activit via the intent ,we used the getExtraString Above
+                   
+       
+             
+       
+       //Now we have to return a value from this OnStartCommand function
+        // Take note,that what ever value we return here will determine whether the andrioid system will restat this servic if this service gets stopped incase due to insufficiency of resources.
+         If we return
+        ---->START_NOT_STICKY  -The android system will not restart or recreate the service if the resources become available again.
+        ---->START_STICKY      -The android system will restart this serevice incase ther resources become valailable again.
+        ----> START_REDELIVER_INTENT -- The service will be restarted with a null intent
+        
+        
+       
+                                                                           
+           
      
      
      
