@@ -120,6 +120,132 @@ onCreate()                                   As the content provider is created,
                                              this method immediately to initialise the provider.
 
 
+
+
+
+                          THIS IS A CLASS CREATING  / IMPLEMENTING THE CONTENT PROVIDER
+
+
+class Provider : ContentProvider() {
+
+
+
+
+    val ath = "authority"
+    val contenURI = "content://$ath/user"
+	
+	
+	
+override fun onCreate(): Boolean {
+	  }
+	
+    override fun query(
+        uri: Uri,
+        projection: Array<out String>?,
+        selection: String?,
+        selectionArgs: Array<out String>?,
+        sortOrder: String?
+    ): Cursor? {
+        TODO("Not yet implemented")
+    }
+
+    override fun getType(uri: Uri): String? {
+        TODO("Not yet implemented")
+    }
+
+    override fun insert(uri: Uri, values: ContentValues?): Uri? {
+        TODO("Not yet implemented")
+    }
+
+    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
+        TODO("Not yet implemented")
+    }
+
+    override fun update(
+        uri: Uri,
+        values: ContentValues?,
+        selection: String?,
+        selectionArgs: Array<out String>?
+    ): Int {
+        TODO("Not yet implemented")
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   
 
