@@ -16,12 +16,13 @@ SQLite database
 LESSON 1: ----->   How to Create A sqlite data base in android
 
 
- ------>   To create a database you need to create a class  with the parameter of type of context (you can name the variable anthing).
+ ------>   To create a database you need to create a class  with the parameter of type of context (you can name the variable anthing).               DEFINITION OF CONTEXT  it's the context of current state of the application/object. It lets newly-created objects understand what has been going on. Typically, you call it to get information regarding another part of your program (activity and package/application). e.g when making a toast we passs in context. WE can do thta by using e.g applicaioncontext method e.g  Toast.makeText(applicationContext,"Hellow",Toast.LENGTH_SHORT).show
+
 class Database(context:Context)  or class Database( var_context:Context)
                ------   -----
            var-name     type
 
------->   Then you need to make the class extend the SQLiteOpenHelper() classs ,this class is what will enable you to make the database.
+------>   Then you need to make the class that extends the SQLiteOpenHelper() classs ,this class is what will enable you to make the database.
 class Database(context:Context): SQLiteOpenHelper() 
 
 
@@ -30,7 +31,128 @@ class Database(context:Context): SQLiteOpenHelper()
   1. First is the ---context
   2. Next is the --- database name
   3.Then we give the --- factory                           //We pass null as a paremeter because we want to avoid the overide method
-  4. Finally we give --- database version
+  4. Finally we give --- database version                  //Since this is the first version we pass in 1,
+
+class Database (context: Context) :SQLiteOpenHelper(context,"data_base_name",null,1){
+ 
+}
+
+
+------>Then now you need to overide some basic functions of the SQLiteOpenHelper() class i.e
+
+class Database (context: Context) :SQLiteOpenHelper(context,"data_base_name",null,1){
+
+
+    override fun onCreate(db: SQLiteDatabase?) {     // This on create function will be excuted if the device does not contain the database
+                                                     // This is where we need to create our table for our database and inset information to our rows and colums of the table of the database.The database was created when passed a name for our database in the SQLiteOpenHelper() method
+        TODO("Not yet implemented")
+    }
+
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {     //This will be excuted if we have an older version of the database which needs to be upgraded accordingly
+        TODO("Not yet implemented")
+    }
+}
+
+
+
+-----> THen now we have to write the table name and all the column details
+Remember that the sqlite is a relational database that take the table approach of storing data. 
+e.g
+
+                                               studentsResults          <---------- Table name
+.                                         ___________________________     
+.                                        |___id___|__name__|_marks__|   <----- column names     
+.                                        |________|________|________|         
+.                                        |________|________|________|       
+.                                        |________|________|________|
+ So we have to create new variablews within the companion object to identify the table and the column details
+
+
+
+
+class Database (context: Context) :SQLiteOpenHelper(context,"ACDB",null,1){
+    override fun onCreate(db: SQLiteDatabase?) {
+        db?.execSQL("CREATE TABLE STUDENT_RESULTS (_id INTEGER PRIMARY KEY AUTOINCREMENT ,NAME TEXT, MARKS TEXT)")   // This create the tables and the columns for the  table
+        db?.execSQL("INSERT INTO STUDENT_RESULTS (NAME,MARKS) VALUES ('George',432)")                        // This inserts data into the columns of the table for first row
+        db?.execSQL("INSERT INTO STUDENT_RESULTS (NAME,MARKS) VALUES ('Eliud',455)")                         // This inserts data into the columns of the table for first row
+
+
+
+
+  -----> Now in the main activity file we need to be able to access the data base and send querrys to it ,and this querries will return data we select fro the data base
+    class MainActivity:AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+                                    val databaseInstace = Database(applicationContext)               //    We create an instance of the class we created our database in  and pass in context as an argument
+                                    var db = databaseInstance.readableDatabase                       //    Now we have to make this database readable in the main activity  
+                                    var data = db.rawQuery("SELECT * FROM ACTABLE",null)             //    Now we have to send a query to thr readble database. This rawQuery takes in two arguments, a query to select the table,and a selection of  content within the table,but in this case we pass null because we dont want to select a specific part of th table, but insted want the whole table
+
+     
+     if (data.moveToFirst()){              //If we are able to move to the first part of the data returned Then the code excution was succesful and the if statement will be excuted. a toast message will be displayed showing the data in the first colum since we passed the column index in the data.getString(ColumnIndex) method
+            Toast.makeText(applicationContext,data.getString(1)+"\n"+rs.getString(2),Toast.LENGTH_LONG).show()   //This will display a toast messg showing data in the column index passed within the brackets
+                          -----context------, -----------------msg------------------,---duration-----
+        }
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
 
 
 To create database name within the class as a variable we use a companion object
