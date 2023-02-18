@@ -33,9 +33,18 @@ Content URI is used as a query string.
 STRUCTURE OF CONTENT URI
 
       content://authority/optionalPath/optionalID
-         
-       val PROVIDER_NAME = "any name"
-     e.g val URL = "content://$PROVIDER_NAME/users"
+                                                                                                                                                                                     package com.example.tenex                                                         
+       val PROVIDER_NAME = "any name"                            //For the provider name ,since it has to be unique ,we can pass in the package name and add a slash for the content provider name e.b val PROVIDER_NAME = "com.example.tenex/ Provider"
+     e.g val URL = "content://$PROVIDER_NAME/users"              // Now for the path ,we can pass in the table name of the data base we created in case we are aceessig our own custom data base we created
+
+******************NOTE----> Now ,that you have finished writing the uri.You NEED TO PARSE IT TO CONVET IT IN A FORMAT ANDROID CAN UNDERTAND I.E convert your URI to a content_uri
+
+TO CONVERT THE URI TO A CONTENT_URI
+You have to user the Uri.parse() method and pass in your uri as a argument.
+
+
+
+Now ---->val content_uri =  Uri.parse(URI) 
 
 DETAILES OF DIFFERY PARTS OF THE CONTENT URI
 
@@ -45,6 +54,174 @@ DETAILES OF DIFFERY PARTS OF THE CONTENT URI
 --> optionalID – It is a numeric value that is used when there is a need to access a particular record.
 
 Note --> If an ID is mentioned in a URI then it is an id-based URI otherwise a directory-based URI.
+
+
+
+
+FOR EXAMPLE---> WE HAVE CREATE OUR OWN DATA BASE AND WE WOULD WANT OURCONTENT PROVIDER TO ASSESS THE DATA IN THE TABLE WE CREATED IN OUR DATA BASE E.G HERE BELOW
+// class Database (context: Context) :SQLiteOpenHelper(context,"ACDB",null,1){
+//    override fun onCreate(db: SQLiteDatabase?) {
+//        db?.execSQL("CREATE TABLE STUDENTS_RESULTS (_id INTEGER PRIMARY KEY AUTOINCREMENT ,NAME TEXT, MARKS TEXT)")
+//        db?.execSQL("INSERT INTO STUDENTS_RESULTS(NAME,MARKS) VALUES ('George',432)")
+//        db?.execSQL("INSERT INTO STUDENTS_RESULTS(NAME,MARKS) VALUES ('Eliud',455)")
+//    }
+//
+//    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+//        TODO("Not yet implemented")
+//    }
+//
+//}
+In our content provider to enable the user to access the  columns in the data base i.e , NAME,MEANING .
+We have to create variables with the same names as the columns we are tying to access from our data base  in our content provider.
+
+
+i.e val _name = "NAME"  <----- This name has to be the same as the one in our columns in our data base
+    val _marks ="MARKS"
+
+We usually carry out the above implementation in a companion object within the content provider class.We use a companion object so that we can directly access the values in the companion object from the outside using just the name of the class .
+class Provider : ContentProvider(){
+
+
+    companion object{
+        val PROVIDER_NAME = "com.example.tenex/ Provider"
+        val URI = "content://$PROVIDER_NAME/ACTABLE"
+
+        val _id ="_id"
+        val _name ="NAME"
+        val _marks ="MARKS"
+
+
+    }
+    
+    
+    ----> Now in our content provider class we have  to overide the soame functions in the content provider.This a re namely
+onCreate() getType()   delete()  update() insert()  query()  methods .
+	
+	
+THE SIX ABSTRACT METHODS OF THE CONTENTPROVIDER CLASS.
+
+
+
+Abstract Method                              Description
+
+query()                                      A method that accepts arguments and fetches the data from the                                	
+                                             desired table. Data is retired as a cursor object.
+	
+insert()                                     To insert a new row in the database of the content provider. 
+                                             It returns the content URI of the inserted row.
+
+ update()                                    This method is used to update the fields of an existing row. 
+                                             It returns the number of rows updated.
+
+delete()                                     This method is used to delete the existing rows. 
+                                             It returns the number of rows deleted.	
+
+getType()                                    This method returns the Multipurpose Internet Mail Extension(MIME)    
+                                             MIME i.e--> type of data to the given Content URI.
+
+onCreate()                                   As the content provider is created, the android system calls 
+                                             this method immediately to initialise the provider.
+	
+	//--->Proceede to next explanation..............................................................  Down here below
+
+class Provider : ContentProvider(){
+	
+	companion object{
+        val PROVIDER_NAME = "com.example.tenex/ Provider"
+        val URI = "content://$PROVIDER_NAME/ACTABLE"
+
+        val _id ="_id"
+        val _name ="NAME"
+        val _marks ="MARKS"
+
+
+    }
+ 
+    override fun onCreate(): Boolean {
+    }
+ 
+    override fun query(
+    ): Cursor? {
+        TODO("Not yet implemented")
+    }
+
+    override fun getType(uri: Uri): String? {
+        TODO("Not yet implemented")
+    }
+
+    override fun insert(uri: Uri, values: ContentValues?): Uri? {
+        TODO("Not yet implemented")
+    }
+
+    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
+        TODO("Not yet implemented")
+    }
+
+    override fun update(
+
+    ): Int {
+        TODO("Not yet implemented")
+    }
+}
+
+--------------->Now on we need to access our data base that we created ...
+	To do that we create a variable of type SQLiteDatabase
+	  lateinit var db:SQLiteDatabase
+	
+	Then next we need todo is instanceate the ata base in the on create method .The we will chage if the object hass been returend correctly or if it is null.
+	
+       override fun onCreate(): Boolean {
+                        var database = Database(requireContext())
+                        db = database.writableDatabase
+
+       return if(db==null) false else true
+	       
+	       
+------->  Now in the inssert method we need to indert the row received throught the content uri  to the data base.
+	   The insert method accepts two arguments. uri: Uri, values: ContentValues? .The uri is the content_uri and the content value is the values received with the uri.
+	    
+override fun insert(uri: Uri, values: ContentValues?): Uri? {
+	         db.insert("ACTABLE",null,values)                   // Here we inseet the values i.e ContentVlaue  to the table of the data base i.e ACTABLE,We pass null as the nullcomunhack.
+                  context?.contentResolver?.notifyChange(uri,null) // We use this to notify the user of the change made
+		  return uri                                      // finally we retrn the uri after making changes 
+    
+    
+    
+-----> Now we go to the update method.This receivers four parameters   
+	
+	
+	overide update(uri: Uri, selection: String?,cv: ContentValues?,selection: String?, selectionArray: Array<out String>)  // Ther uri is the content uri , also cv is content values passed with the uri,then selection is the condition to be met for the updata and the slection array is the condtion value.We have to passs all of this to the data base update method
+	 val number =  db.update("ACTABLE",cv,selection,selectionArray)   //We pass all the parameters we received.This method reruns the count of rows changed
+         context?.contentResolver?.notifyChange(uri,null)  // Finally we have to notify the user of the change made
+	 return number   // We return the number of changes made to the table.
+
+    
+	
+-----> Now we go to the delete method.This receivers three parameters   
+	
+	
+	overide delete(uri: Uri, selection: String?,selection: String?, selectionArray: Array<out String>)  // Ther uri is the content uri ,,then selection is the condition to be met for the updata and the slection array is the condtion value.We have to passs all of this to the data base delete method
+	 val number =  db.update("ACTABLE",cv,selection,selectionArray)   //We pass all the parameters we received.This method reruns the count of rows changed
+         context?.contentResolver?.notifyChange(uri,null)  // Finally we have to notify the user of the change made
+	 return number   // We return the number of changes made to the table.
+
+    
+    -----> Now we move on to the querry metod.This receives four parameter
+	
+override fun query(
+        uri: Uri,
+        cols: Array<out String>?,
+        condtion: String?,
+        condition_val: Array<out String>?,
+        sortOrder: String?
+    ): Cursor? {
+        TODO("Not yet implemented")
+    }
+	
+	
+    
+    
+
 
 
 OPERATIONS IN THE CONTENT PROVIDER
