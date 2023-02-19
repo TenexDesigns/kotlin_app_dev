@@ -247,6 +247,119 @@ override fun getType(uri: Uri): String? {
 	
 	>
 </provider>
+	
+	
+	
+	
+	//Now in the main activit we can do the follwing of creating and updateing the values
+	
+	
+        var name:EditText = findViewById(R.id.name)
+        var meaning:EditText = findViewById(R.id.meaning)
+        var next:Button = findViewById(R.id.next)
+        var clear:Button = findViewById(R.id.clear)
+        var previus:Button = findViewById(R.id.previus)
+        var insert:Button = findViewById(R.id.insert)
+        var update:Button = findViewById(R.id.update)
+
+
+
+        val rs:Cursor? = contentResolver.query(Provider.content_uri,
+            arrayOf(Provider._id,Provider._name,Provider._meaning),null,null,null)
+                                                                                                        //provide name of the column which you want to be returned in sourted oredr e.g Provider.name
+           //This will enable user to see what is in the table in order from one raow to another
+           next.setOnClickListener {
+           if (rs?.moveToNext() == true) {
+               name.setText(rs.getString(1))
+               meaning.setText(rs.getString(2))
+
+
+               }
+
+
+             }
+
+        //This reads the data that was there prevoiusly
+
+
+        previus.setOnClickListener {
+            if (rs?.moveToPrevious()!!) {
+                name.setText(rs.getString(1))
+                meaning.setText(rs.getString(2))
+
+
+            }
+        }
+
+
+
+        //This clears what data was put in the fielsds and then puts focus on the name field.
+
+        clear.setOnClickListener {
+            name.setText("")
+            meaning.setText("")
+            name.requestFocus()
+
+        }
+
+
+        //Now let us focus on the insert
+         //When the user clicks this button ,we need to insert what is givven by the user.
+        // For this we need the content values to put values in the data base
+        // We usually put values by giving the name of column and the value from the edit text as parameters
+        insert.setOnClickListener {
+
+            val cv =ContentValues()
+
+            cv.put(Provider._name,name.text.toString())
+            cv.put(Provider._meaning,meaning.text.toString())//This gets the users value and temporary holds them in the content resolver
+            //Finally we call the content resolver and pass the content uri of the provider and the content valvue containing the users values
+            contentResolver.insert(Provider.content_uri,cv)
+
+
+
+        }
+
+
+        update.setOnClickListener {
+            var cv = ContentValues()                                         //PAsses in the user input specifing what should be updatte
+            contentResolver.update(Provider.content_uri,cv,"NAME = ?", arrayOf((name.text.toString())))
+            rs?.requery()                                          //Specifies the condtion for which the data should be deleted
+        }
+
+        delete.setOnClickListener {
+            var cv = ContentValues()                                         //PAsses in the user input specifing what should be updatte
+            contentResolver.update(Provider.content_uri,cv,"NAME = ?", arrayOf((name.text.toString())))
+            rs?.requery()                                          //Specifies the condtion for which the data should be deleted
+        }
+
+
+
+
+
+
+    }}
+
+
+	
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
     
 
 
