@@ -32,10 +32,10 @@ Content URI is used as a query string.
 
 STRUCTURE OF CONTENT URI
 
-      content://authority/optionalPath/optionalID
+      content://authority/data_type/optionalID
                                                                                                                                                                                      package com.example.tenex                                                         
-       val PROVIDER_NAME = "any name"                            //For the provider name ,since it has to be unique ,we can pass in the package name and add a slash for the content provider name e.b val PROVIDER_NAME = "com.example.tenex/ Provider"
-     e.g val URL = "content://$PROVIDER_NAME/users"              // Now for the path ,we can pass in the table name of the data base we created in case we are aceessig our own custom data base we created
+       val AUTHORITY_NAME = "any name"                            //For the authority name ,since it has to be unique ,we can pass in the package name and add a slash for the content provider name e.b val PROVIDER_NAME = "com.example.tenex/ Provider"
+     e.g val URL = "content://$AUTHORITY_NAME/users"              // Now for the data_type ,we can pass in the table name of the data base we created in case we are aceessig our own custom data base we created
 
 ******************NOTE----> Now ,that you have finished writing the uri.You NEED TO PARSE IT TO CONVET IT IN A FORMAT ANDROID CAN UNDERTAND I.E convert your URI to a content_uri
 
@@ -50,7 +50,7 @@ DETAILES OF DIFFERY PARTS OF THE CONTENT URI
 
 --> content:// – Mandatory part of the URI as it represents that the given URI is a Content URI.
 --> authority – Signifies the name/string  of the content provider like contacts, browser, etc. This part must be unique for every content provider.
---> optionalPath – Specifies the type of data provided by the content provider. It is essential as this part helps content providers to support different types of data that are not related to each other like audio and video files.
+--> data_type – Specifies the type of data provided by the content provider. It is essential as this part helps content providers to support different types of data that are not related to each other like audio and video files.
 --> optionalID – It is a numeric value that is used when there is a need to access a particular record.
 
 Note --> If an ID is mentioned in a URI then it is an id-based URI otherwise a directory-based URI.
@@ -83,8 +83,8 @@ class Provider : ContentProvider(){
 
 
     companion object{
-        val PROVIDER_NAME = "com.example.tenex/ Provider"
-        val URI = "content://$PROVIDER_NAME/ACTABLE"
+        val AUTHORITY_NAME = "com.example.tenex/ Provider"
+        val URI = "content://$AUTHORITY_NAME/ACTABLE"
 
         val _id ="_id"
         val _name ="NAME"
@@ -165,10 +165,10 @@ class Provider : ContentProvider(){
 }
 
 --------------->Now on we need to access our data base that we created ...
-	To do that we create a variable of type SQLiteDatabase
+	To do that we create a variable of type SQLiteDatabase outside of all overiden methods
 	  lateinit var db:SQLiteDatabase
 	
-	Then next we need todo is instanceate the ata base in the on create method .The we will chage if the object hass been returend correctly or if it is null.
+	Then next we need todo is instanceate the Data base in the on create method .The we will chage if the object hass been returend correctly or if it is null.
 	
        override fun onCreate(): Boolean {
                         var database = Database(requireContext())
@@ -190,8 +190,8 @@ override fun insert(uri: Uri, values: ContentValues?): Uri? {
 -----> Now we go to the update method.This receivers four parameters   
 	
 	
-	overide update(uri: Uri, selection: String?,cv: ContentValues?,selection: String?, selectionArray: Array<out String>)  // Ther uri is the content uri , also cv is content values passed with the uri,then selection is the condition to be met for the updata and the slection array is the condtion value.We have to passs all of this to the data base update method
-	 val number =  db.update("ACTABLE",cv,selection,selectionArray)   //We pass all the parameters we received.This method reruns the count of rows changed
+	overide update(uri: Uri, cv: ContentValues?,condition: String?, condition_val: Array<out String>)  // Ther uri is the content uri , also cv is content values passed with the uri,then selection is the condition to be met for the updata and the slection array is the condtion value.We have to passs all of this to the data base update method
+	 val number =  db.update("ACTABLE",cv,condition,condition_val)   //First we pass the name of the table,We pass all the parameters we received.This method reruns the count of rows changed
          context?.contentResolver?.notifyChange(uri,null)  // Finally we have to notify the user of the change made
 	 return number   // We return the number of changes made to the table.
 
@@ -200,13 +200,14 @@ override fun insert(uri: Uri, values: ContentValues?): Uri? {
 -----> Now we go to the delete method.This receivers three parameters   
 	
 	
-	overide delete(uri: Uri, selection: String?,selection: String?, selectionArray: Array<out String>)  // Ther uri is the content uri ,,then selection is the condition to be met for the updata and the slection array is the condtion value.We have to passs all of this to the data base delete method
-	 val number =  db.update("ACTABLE",cv,selection,selectionArray)   //We pass all the parameters we received.This method reruns the count of rows changed
+	overide delete(uri: Uri, condition: String?,condition_val: Array<out String>)  // Ther uri is the content uri ,then selection is the condition to be met for the updata and the slection array is the condtion value.We have to passs all of this to the data base delete method
+	 val number =  db.update("ACTABLE",condition,condition_val)   //First we have to pass the name of the table are connecting to.We pass all the parameters we received.This method reruns the count of rows changed
          context?.contentResolver?.notifyChange(uri,null)  // Finally we have to notify the user of the change made
 	 return number   // We return the number of changes made to the table.
 
     
-    -----> Now we move on to the querry metod.This receives four parameter
+    -----> Now we move on to the querry metod.This receives four parameter.
+	This method returns the data requested by the user as a cursor object
 	
 override fun query(
         uri: Uri,
@@ -215,11 +216,35 @@ override fun query(
         condition_val: Array<out String>?,
         sortOrder: String?
     ): Cursor? {
+	return db.query("ACTABLE",cols,condtion,condition_val,null,null)
         TODO("Not yet implemented")
     }
+
+
+
+
+
+
+
+-----> Now the get type method.We have to mentin the vendor specific directory.
+	
+override fun getType(uri: Uri): String? {
+        return "vnd.android.cursor.dir/vnd.example.actable"
+	                                           ----------->Pass your table name here.
+    }
+
+
+
+------> Finally after doing all of this you need to regester your provider class in the android manifest file
+Iy is compulsory that you provide the name of the provider that you create 
+	It is also compulsory that you provide the authority by providing the package name and the name of thr provider
 	
 	
-    
+        <provider
+            android:name=".Provider"
+            android:authorities=" com.example.tenex.Provider">
+
+        </provider>
     
 
 
@@ -279,7 +304,7 @@ THE SIX ABSTRACT METHODS OF THE CONTENTPROVIDER CLASS.
 Abstract Method                              Description
 
 query()                                      A method that accepts arguments and fetches the data from the                                	
-                                             desired table. Data is retired as a cursor object.
+                                             desired table. Data is returned as a cursor object.
 	
 insert()                                     To insert a new row in the database of the content provider. 
                                              It returns the content URI of the inserted row.
