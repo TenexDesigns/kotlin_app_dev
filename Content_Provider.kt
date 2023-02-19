@@ -236,15 +236,17 @@ override fun getType(uri: Uri): String? {
 
 
 ------> Finally after doing all of this you need to regester your provider class in the android manifest file
-Iy is compulsory that you provide the name of the provider that you create 
 	It is also compulsory that you provide the authority by providing the package name and the name of thr provider
 	
 	
-        <provider
-            android:name=".Provider"
-            android:authorities=" com.example.tenex.Provider">
-
-        </provider>
+<provider
+   android:name=".Provider"                //It is compulsory that you provide the name of the provider that you create 
+   android:authorities=" com.example.tenex.Provider" //It is also compulsory that you provide the authority by providing the package name and the name of thr provider
+   android:exported="true"     //Do you want  to export your content provider any where else
+   android:grantUriPermissions="true"  //Do you want to grant permission for this uri to be used to access this data base.
+	
+	>
+</provider>
     
 
 
