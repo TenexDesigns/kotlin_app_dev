@@ -73,11 +73,14 @@ Basically fragments are divided as three stages as shown below.
 
 
 
+
+//Note--->When you create a fragment --It is usally surrounded by Frame Layout ,Change this layout to <androidx.constraintlayout.widget.ConstraintLayout to work easily with the fragment.
+
 How to use Fragments?
 
 This involves number of simple steps to create Fragments.
 
-----> First of all decide how many fragments you want to use in an activity. For example let's we want to use two fragments to handle landscape and portrait modes of the device.
+----> First of all decide how many fragments you want to use in an activity. For example lets we want to use two fragments to handle landscape and portrait modes of the device.
 
 ----> Next based on number of fragments, create classes which will extend the Fragment class. The Fragment class has above mentioned callback functions. You can override any of the functions based on your requirements.
 
@@ -129,7 +132,7 @@ To be able to access the views in fragments ,you first have to overide the OnCre
     ----> Now we need a frgmemnet which we can dynamicly change our fragment content
     
     
-    To do this in the activity we desire for the fragment to be contained.
+    To do this ,in the activity we desire for the fragment to be contained.
     we add the FrameLayout container which will host our differnt fragments
     We add this frame layout in the acity xml file.
     
@@ -138,8 +141,187 @@ To be able to access the views in fragments ,you first have to overide the OnCre
         android:id="@+id/frame"
         android:layout_width="419dp"
         android:layout_height="500dp">
+        
+        e.g" encoding="utf-8"?>
+         This is your activity file
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <Button
+        android:id="@+id/two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="272dp"
+        android:layout_marginBottom="104dp"
+        android:text="two"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="104dp"
+        android:text="one"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <FrameLayout                                               //Here is the frame layout.
+        android:id="@+id/frame"
+        android:layout_width="399dp"
+        android:layout_height="468dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"></FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+         
+//Note--->When you create a fragment --It is usally surrounded by Frame Layout ,Change this layout to <androidx.constraintlayout.widget.ConstraintLayout to work easily with the fragment.
+         This is your fragment file
+         <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeFragment">
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="150dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="124dp"
+        android:layout_marginEnd="204dp"
+        android:text="Chat view"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+        
+        Now ,in our acivty filewe have to crete instances of our fragment
+        
+    class MainActivity:AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        var first = HomeFragment()
+        var second = ChatFragment()
+        
+        
+        Now ,to be able to change the fragment contained in our frnelayout container ,
+        we have to put the first fragment which is usaully displayed ,when user navigateds to the activity. bu calling this method
+        
+        
+               supportFragmentManager.beginTransaction().apply {
+                   replace(R.id.frame,first)       //This puts the first fragmne t to be displayed in the fragment container.
+                   commit()
+
+        }
+        
+        
+        Now ,to be able to change the fragmemnt displayed ,we still use the above method.
+        
+        
+        class MainActivity:AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        var one:Button = findViewById(R.id.one)
+        var two:Button = findViewById(R.id.two)
+
+        var first = HomeFragment()
+        var second = ChatFragment()
+
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frame,first)
+            commit()
+
+        }
+
+        one.setOnClickListener {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.frame,first)
+                commit()
+
+            }
+
+        }
+        two.setOnClickListener {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.frame,second)
+                commit()
+
+            }
+
+        }
+
+
+    }}
+        
+        
+        Now ,there is a problem.There is no stack for fragments.So if you click the back button ,The app activity  will be destrioyed instead of going back.
+         To solve this problem.We use the addToBackStack() method that will add our fragment to a stack
+         This method takes in a parameter of name,the name is the optionall we give to the fragment in the stack,But you can pass null if you dont care about the name.
     
     
+class MainActivity:AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        var one:Button = findViewById(R.id.one)
+        var two:Button = findViewById(R.id.two)
+
+        var first = HomeFragment()
+        var second = ChatFragment()
+
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frame,first)
+            commit()
+
+        }
+
+        one.setOnClickListener {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.frame,first)
+                addToBackStack(null)               //We addede the addToBack Stack method.
+
+                commit()
+
+            }
+
+        }
+        two.setOnClickListener {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.frame,second)
+                addToBackStack(null)
+
+                commit()
+
+            }
+
+        }
+
+
+    }}
+
+
 
 
 
