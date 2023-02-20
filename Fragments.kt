@@ -1,7 +1,17 @@
 What is a Fragment.
+It is an area of an activity which can be changed to hold other functionality
+e.g The top bar of whats up has three tabs of chats status and calls.The area below this bar is a fragment 
+When you swipe to either of chat ,staus or call you are changing from one fragment to another ,thus changing functionality of what is displyed.
+The basis of fragments is to reduce the number of activities.
+Frgments can be reused.e.g Think of it as a function, declare it once and use it or call it anywhere
+
 
 A Fragment is a piece of an activity which enable more modular activity design. A fragment encapsulates functionality so that it is easier to reuse within activities and layouts.
 It will not be wrong if we say, a fragment is a kind of sub-activity.
+
+
+We can have either a static fragment that alaways remains the same in our activity 
+We can also have a fragment container that we can dynamicaly add replace and remove fragments from our activity.
 
 
 Following are important points about fragment −
@@ -87,6 +97,49 @@ A Fragment exist in three states :
 
 
 
+
+In fragments, views e,g buttons are created and accessible after the oncreate method has been called.
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+
+The onCreateView method is what tiew our fragment class to the xml fragment file.
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+    
+    How ever there is a much a much shorter way to tie our xml file to our fragmnt.Simply tie our fragment class file to our xml file by passing R.layout.fragment_home as a parameter in the extended fragment() method.
+    
+class HomeFragment : Fragment(R.layout.fragment_home) {} 
+
+and you wont have to write as much code as you did abbove.
+
+
+To be able to access the views in fragments ,you first have to overide the OnCreatedview method. This method is clled after all views have been created 
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        var view:TextView = findViewById(R.id.textView2)
+    } 
+    
+    
+    
+    ----> Now we need a frgmemnet which we can dynamicly change our fragment content
+    
+    
+    To do this in the activity we desire for the fragment to be contained.
+    we add the FrameLayout container which will host our differnt fragments
+    We add this frame layout in the acity xml file.
+    
+    
+      <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="419dp"
+        android:layout_height="500dp">
+    
+    
 
 
 
