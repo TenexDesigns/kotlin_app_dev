@@ -3,6 +3,10 @@ The intent filter tells the android system ,which activities or apps can handle 
 Intent Resolution
 When android is given an intent,the android system has to figure out which activty /app /activities can handle it.This process is known as intent resolution.
 
+There are two types of intent.
+Implicit Intent
+Explicit Intent
+
 
 
 Explicit intent
