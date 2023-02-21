@@ -27,7 +27,7 @@ Intents are Used to
 
 
 
-Explicit intents
+********************** Explicit intents ***************************
 
 1.Used to jump from one activity to another within the same application.
 
@@ -106,6 +106,41 @@ class SecondActivity:AppCompatActivity() {
 
 
 
+       
+         ********************** Implicit intents ***************************
+           
+           This are used to communicte with diffrent applciations ,e.g to start a call,to open a link ,to open a pdf file
+           Since we dond know our target actvity or app ,we ont pass any parameters to the intent.
+           
+           var intent - Intent()
+           Now we need to define the type of action to be performend by our intent,so that the android system can know which apps are best to handle our intent.
+           
+           intent.action = Inten.ACTION_SEND
+           
+           Now incase we have some data we want to send with our intent ,we use the putExtra method,
+           intent.putEtra(Intent.EXTRA_TEXT,data)
+           Then we have to describe the type of data that we are sendinfg out
+           
+           intent.type = "text/plain"
+           
+           Finally we have to startActivit method and pass in the Intent.createChooser method to bring up a list of most probable apps capable of handling the above intent.
+           We pass in the intent and a custom message telling the user to choose their preffered app as parameters.
+         startActivity()Intent.createChooser(intent,"Please select your preffered app")
+         
+         
+         
+       one.setOnClickListener {
+
+            var intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.putExtra(Intent.EXTRA_TEXT,"When are we meeting")
+
+
+            startActivity(Intent.createChooser(intent,"Please seleect your app"))
+
+        }
+       
+       
 
 
 
