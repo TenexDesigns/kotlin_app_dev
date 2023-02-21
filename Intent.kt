@@ -17,12 +17,15 @@ It is generally used with startActivity() method to invoke activity, broadcast r
 
 Android intents are mainly used to:
 
-Start the service
-Launch an activity
-Display a web page
-Display a list of contacts
+Start an activity
+Start the service  e.g(Open web brower,
+                       Pass data in the same application or a different application
 Broadcast a message
+                       
+Display a list of contacts
 Dial a phone call
+Display a web page
+
 
 
 Types of Intent
