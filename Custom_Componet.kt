@@ -6,6 +6,21 @@ If you only need to make small adjustments to an existing widget or layout, you 
 and override its methods which will give you precise control over the appearance and function of a screen element.
 
 
+                                      Pas in the below parameters                            Use this to overide your desired view
+class Custom @JvmOverloads constructor(context: Context,style:Int =0,attribute:AttributeSet,):MaterialButton(context,attribute,style){
+
+init{  // Hree you define you dimensons 
+  
+  height = res/style.dimension //It is better to define the dimensions and style in the resource folder
+}
+
+
+
+
+}
+
+
+
 
 
 
