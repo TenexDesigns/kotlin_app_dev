@@ -46,6 +46,66 @@ Then use StartAcity() and pass in the intent as a parameter .This is enough to n
 
 
 2. Used to pass data from one activity to another within the same app.
+We use explicit intent when we know our target activity and implicit intent when we dont know our target activit.
+In sending data from one activity to another,we know our destination actvity,hence we call this an explicit intent
+To send data we use the putExtra() method and pass in key value pair, where the value is the data to be send and the key is the tag name used to identigy the data in the value .The key is always a string value,Thedta in the value can change based on what you want to send to the activity
+
+                                                                                                                                                                                                
+                                        ____________________________>This is our target activity                                                        
+              var intent = Intent(this,secondActivity::class.java)
+              intent.putExtra("Key_name","The data to be sent")
+              startActivity(intent)
+              
+              
+Now in the above code ,you have sent the data to the second activity.
+To receive and access the data iin the second activity
+we use intent---(previously getIntent) To receive the sent data.
+we use the extras -->(previously getExtras) to extract the data send from the other activitys.
+We can the store this data pulled from the intent in a variable of the type of Bundle.We can lso make this variable nullable since coz may be sometimes the data may not be received i.r Bundle? -->nullable data type
+
+val bundle:Bundle? = intent.extras
+
+Now the bundle may contain a lot of data and to extract the desired data in our case,where we send the string "The data to be sent" with a key of "Key_name"
+We use the key name to get the data from the bundle
+
+val data = bundle? .getString("Key_name")
+
+
+ACTIVITY SENDING THE DATA
+
+class MainActivity:AppCompatActivity() {
+   override fun onCreate(savedInstanceState: Bundle?) {
+   super.onCreate(savedInstanceState)
+   setContentView(R.layout.activity_main)
+
+        var one:Button = findViewById(R.id.one)
+
+
+        one.setOnClickListener {
+
+            var intent = Intent(this,secondActivity::class.java)  //Activity receiving the data
+            intent.putExtra("Key_name","The data to be sent")     //Key name of data being sseent and the data being sent
+            startActivity(intent)
+            
+        }
+        
+        
+        
+        ACTIVITY RECEIVING THE DATA
+           
+           
+           
+class SecondActivity:AppCompatActivity() {
+
+   override fun onCreate(savedInstanceState: Bundle?) {
+   super.onCreate(savedInstanceState)
+   setContentView(R.layout.activity_second)
+   
+       var bundel:Bundle? = intent.extras
+       var msg =  bundel?.getString("key_value")
+
+
+
 
 
 
