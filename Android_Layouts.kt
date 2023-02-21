@@ -31,7 +31,7 @@ android:id                              --  Gives a unique id to identify the vi
 android:background                      --  This is a drawable to ude as the background
 android:contentDescription              --  This defines text that briefly describes content of the view
 android:onClick                         --  This is the name of the method ,in this view context to invoke when the view is invoked
-android:visibility                      --  This controls the initial visibility of the view
+android:visibility                       --  This controls the initial visibility of the view
 
 
 
