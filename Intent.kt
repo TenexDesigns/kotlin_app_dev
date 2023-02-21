@@ -134,11 +134,60 @@ class SecondActivity:AppCompatActivity() {
             var intent = Intent()
             intent.action = Intent.ACTION_SEND
             intent.putExtra(Intent.EXTRA_TEXT,"When are we meeting")
+            intent.type = "text/plain"                 //Do not forget to put this data type as it will help the android system to know which app handles what.
+            
+
+
+            startActivity(Intent.createChooser(intent,"Please seleect your app"))
+            
+            
+       }
+   
+   
+   ANOTHER EXAMPLE HERE
+           To create an app tha displays an image.
+           This image can be gotten fro any of the apps storing the image eg gallay,camera app,file mamager
+           
+    one.setOnClickListener {
+
+            var intent = Intent()
+            intent.action = Intent.ACTION_GET_CONTENT   //Here we are getting content from the android phone
+            intent.type = "image/*"    //Since the getContent method gets all conntent in the phone,we have to put a type of the data to be retrieved.Here we put all types oof images.We can even put "images/ping" to only get ping or jpeg images.
+
+            startActivityForResult(intent,56)  //Here we pass in the intent and the custom or self assigned request code.We assign the request code ,since the requests we make to the phone can be many and so we assign codes
+           
+        }
+    
+                                                             ________//Since weare getting an image in our phone,What willll be returned after the user chooses an image will be the URI t that image within the phone   
+    overide fun AcivityResult(requstCode:Int,resultCode:int,data:Intent?){
+            super.onActivityResult(requestCode,rsultCode,data)
+            if(resultCode ==Activity.RESULT_OK&& requestCode ==56){ //Here we check if the process of fetching the image was succesful and i the request code for our request of image was the one that was succcesfull
+                    
+                    var uri = data?.data    //Here we extracy te uri to the image within the phone system.
+                    imageViewButton.setImageURI(uri) //Here we set the image view view component and set image uri to theuri we received
+    
+    
+    
+    }
+       
+       
+       
+       
+       
+               
+       one.setOnClickListener {
+
+            var intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.putExtra(Intent.EXTRA_TEXT,"When are we meeting")
+            intent.type = "text/plain"                 //Do not forget to put this data type as it will help the android system to know which app handles what.
+            
 
 
             startActivity(Intent.createChooser(intent,"Please seleect your app"))
 
         }
+       
        
        
 
