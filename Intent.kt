@@ -25,6 +25,15 @@ Broadcast a message
 Dial a phone call
 
 
+Types of Intent
+Implict 
+Explicit 
+
+
+
+Explicit iNtent -is used for communication within the same app
+Implict is used for communication with other apps.
+
 
 
 
