@@ -10,6 +10,19 @@ Then use StartAcity() and pass in the intent as a parameter .This is enough to n
             startActivity(intent)
 
         }
+        
+        
+Android Intent is the message that is passed between components such as activities, content providers, broadcast receivers, services etc.
+It is generally used with startActivity() method to invoke activity, broadcast receivers etc.
+
+Android intents are mainly used to:
+
+Start the service
+Launch an activity
+Display a web page
+Display a list of contacts
+Broadcast a message
+Dial a phone call
 
 
 
