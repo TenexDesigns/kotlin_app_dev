@@ -83,10 +83,10 @@ class MainActivity:AppCompatActivity() {
              // This method returns either PERMISSION_GRANTED or PERMISSION_DENIED, depending on whether your app has the permission.
               //Here we passin the context and permission to the ContextCompat.checkSelfPermission() method
                 ContextCompat.checkSelfPermission(applicationContext,permission) == PackageManager.PERMISSION_GRANTED -> { // If the user has already given the permission to the app.Then a toast message is show or any desired code.
-                    Toast.makeText(applicationContext," Permission Granted For $name",Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext," Permission Granted For $name",Toast.LENGTH_LONG).show()          
+                                                                                                                           }
 
 
-                }
                // If the ContextCompat.checkSelfPermission() method returns PERMISSION_DENIED, call the  shouldShowRequestPermissionRationale() method.
                // If this method returns true, show an educational UI to the user.
                // In this UI, describe why the feature that the user wants to enable needs a particular permission.
@@ -97,48 +97,13 @@ class MainActivity:AppCompatActivity() {
               // This is the code that shows the alert diialog asking the user for permission to access the required files or user data.  
                 // We have to pass the permission in form of an arrayOf() data type ,because some times the permssions may be excuted as a group when many ,hence they are passed in through as an array.
               else -> ActivityCompat.requestPermissions(this, arrayOf(permission),requestCode)
-            }
+                  }
 
-        }
+                                                          }
 
-
-
-
-
-    }
-
-
-
-    override fun onRequestPermissionsResult(requestCode: Int,permissions: Array<out String>,grantResults: IntArray) {
-
-
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-
-        fun innerCheck(name:String){
-            if(grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(applicationContext,"$name permission refused",Toast.LENGTH_LONG).show()
-            }
-            else {
-                Toast.makeText(applicationContext,"$name permission granted ",Toast.LENGTH_LONG).show()
-
-
-            }
-        }
-
-         when (requestCode){
-             location_code -> innerCheck("location")
-             camera_code -> innerCheck("camera")
-             record -> innerCheck("record")
-             write -> innerCheck("write")
-
-
-         }
-    }
+                                                                                  }
     
-    
-    
-    /// This is the showDialog method called to give an eductional alet on why the user requires to give permission to the app to acceess some things in the phone
+        /// This is the showDialog method called to give an eductional alet on why the user requires to give permission to the app to acceess some things in the phone
 
     private fun showDialog(permission:String,name:String,requestCode:Int){
         val builder = AlertDialog.Builder(this)
@@ -147,16 +112,56 @@ class MainActivity:AppCompatActivity() {
             
             setTitle("Permission Required")
             setMessage("Permission to access your $name is required to use this app")
-            setPositiveButton("Ok"){
+            setPositiveButton("Ok"){                  // When the user clicks the " ok" option on the ui dialog alert ,the requestPermission() method is call asking the user for permsission
                 dialog, which -> ActivityCompat.requestPermissions(this@MainActivity, arrayOf(permission),requestCode)
 
-            }
-        }
+                                   }
+                     }
         val dialog:AlertDialog = builder.create()
         dialog.show()
 
 
+                                                                         }
+
+
+      // This function is clalled to show whetehr  the permissions have been given or not.
+    override fun onRequestPermissionsResult(requestCode: Int,permissions: Array<out String>,grantResults: IntArray) {
+
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        
+        // Here we define a function that acceost the name of the custom given of the permisssion and based on if the user has given permission oor not.It disoplays as text message.
+
+        fun innerCheck(name:String){
+            if(grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(applicationContext,"$name permission refused",Toast.LENGTH_LONG).show()
+                                                                                              }
+            else {
+                Toast.makeText(applicationContext,"$name permission granted ",Toast.LENGTH_LONG).show()
+                 }
+        
+                                   }
+
+        // Accrording to what request code is given ,the inner cick method is fired
+         when (requestCode){
+             location_code -> innerCheck("location")
+             camera_code -> innerCheck("camera")
+             record -> innerCheck("record")
+             write -> innerCheck("write")
+         }
+         
+         
+                                                                                                                            }
+         
+         
+         
+         
     }
+    
+    
+    
+
 
 
 
