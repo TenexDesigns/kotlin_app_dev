@@ -95,6 +95,7 @@ class MainActivity:AppCompatActivity() {
               
               // If the shouldShowRequestPermissionRationale() returns false and the  ContextCompat.checkSelfPermission(applicationContext,permission)  returns that the permission is denied then this means that the user has not yet been reuested to give acees to the required permissionss
               // This is the code that shows the alert diialog asking the user for permission to access the required files or user data.  
+                // We have to pass the permission in form of an arrayOf() data type ,because some times the permssions may be excuted as a group when many ,hence they are passed in through as an array.
               else -> ActivityCompat.requestPermissions(this, arrayOf(permission),requestCode)
             }
 
@@ -134,13 +135,18 @@ class MainActivity:AppCompatActivity() {
 
          }
     }
+    
+    
+    
+    /// This is the showDialog method called to give an eductional alet on why the user requires to give permission to the app to acceess some things in the phone
 
     private fun showDialog(permission:String,name:String,requestCode:Int){
         val builder = AlertDialog.Builder(this)
 
         builder.apply {
-            setMessage("Permission to access your $name is required to use this app")
+            
             setTitle("Permission Required")
+            setMessage("Permission to access your $name is required to use this app")
             setPositiveButton("Ok"){
                 dialog, which -> ActivityCompat.requestPermissions(this@MainActivity, arrayOf(permission),requestCode)
 
