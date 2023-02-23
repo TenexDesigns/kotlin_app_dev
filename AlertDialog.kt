@@ -37,16 +37,3 @@ The alert can be created using the AlertDialog.Builder class
 
 
 
-var btn:Button = findViewById(R.id.button3)
-
-        btn.setOnClickListener {                ___________________________>Here we pass in the custom layout we made for our selves
-            val dialog = layoutInflater.inflate(R.layout.alert,null)  
-            val myDialog = Dialog(this)                   //We use this class to create an instance of a dialog box
-            myDialog.setContentView(dialog)         //We set the content of that dialog here
-            myDialog.setCancelable(true)//This makes the dialogue box go away if you press any other part of the screen
-            myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))  //We define the color of the background here
-            myDialog.show()
-        }
-
-        
-        
