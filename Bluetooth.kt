@@ -2,13 +2,18 @@ There is alot of conditions here such as
 asking for permissions
 
 
+********************* PERMISSIONS ****************************
+
 Target Android 11 or lower
 If your app targets Android 11 (API level 30) or lower, declare the following permissions in your apps manifest file:
 
-BLUETOOTH is necessary to perform any Bluetooth classic or BLE communication, such as requesting a connection, accepting a connection, and transferring data.
-ACCESS_FINE_LOCATION is necessary because, on Android 11 and lower, a Bluetooth scan could potentially be used to gather information about the location of the user.
-
+---->  <uses-permission android:name="android.permission.BLUETOOTH"/>      BLUETOOTH is necessary to perform any Bluetooth classic or BLE communication, such as requesting a connection, accepting a connection, and transferring data.
+---->   <uses-permission android:name="android.permission.FINE_LOCATION"/> ACCESS_FINE_LOCATION is necessary because, on Android 11 and lower, a Bluetooth scan could potentially be used to gather information about the location of the user.
 If your app targets Android 9 (API level 28) or lower, you can declare the ACCESS_COARSE_LOCATION permission instead of the ACCESS_FINE_LOCATION permission.
+
+
+
+
 
 
 If your app targets Android 12 (API level 31) or higher, declare the following permissions in your apps manifest file:
@@ -86,8 +91,44 @@ instantiate a BluetoothDevice using a known MAC address, and create a BluetoothS
 
 
 
+
+
+
+************************** FINDING DEVICES  *******************************
+    
 Using the BluetoothAdapter, you can find remote Bluetooth devices either through device discovery or by querying the list of paired devices.
+Make sure you have the appropriate Bluetooth permissions and set up your app for Bluetooth before attempting to find Bluetooth devices.
+
+
+
+*************** SETTING UP YOUR APP FOR BLUETOOTH *********************
+    Before using bluetooth you need to verify that is is supported in your device
+Once the permissions are in place, Bluetooth setup is accomplished in two steps using the BluetoothAdapter:
+ To get a BluetoothAdapter, you first need to have a Context. Use this context to obtain an instance of the BluetoothManager system service. 
+Calling BluetoothManager.getAdapter will give you a BluetoothAdapter object.
+If getAdapter() returns null, then the device doesnt support Bluetooth.
+
+e.g
+val bluetoothManager: BluetoothManager = getSystemService(BluetoothManager::class.java)
+val bluetoothAdapter: BluetoothAdapter? = bluetoothManager.getAdapter()
+if (bluetoothAdapter == null) {
+           Toast.makeText(this," NOT Supported",Toast.LENGTH_LONG).show()
+
+            // Device doesn't support Bluetooth
+        }
+        else Toast.makeText(this,"Supported",Toast.LENGTH_LONG).show() }
+           // Device does support Bluetooth
+}
   
+  ********************** ENABLE BLUETOOTH **********************
+Next, you need to ensure that Bluetooth is enabled. Call isEnabled() to check whether Bluetooth is currently enabled.
+If this method returns false, then Bluetooth is disabled. To request that Bluetooth be enabled, call startActivityForResult(), passing in an ACTION_REQUEST_ENABLE intent action. 
+This call issues a request to enable Bluetooth through the system settings (without stopping your app).
+
+if (bluetoothAdapter?.isEnabled == false) {
+  val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+  startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
+}
   
   
   
