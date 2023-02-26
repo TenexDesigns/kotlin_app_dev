@@ -44,3 +44,74 @@ simple snackbar --No action
 Custom Color snack bar ---Can be customised in terms of color e.tc
 Snackbar with option -- > Give user an option e.g to undo the action.
 
+
+
+CORDINATOR lAYOUT
+
+tHIS ENABLE FEATURES SUCH AS
+
+- Swipe to dismiss
+- Automatic moving of widgets like fab
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
