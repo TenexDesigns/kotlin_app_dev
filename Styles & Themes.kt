@@ -107,6 +107,10 @@ e.g for theme
 </resources>
    
    
+   The Android Support Library also provides other attributes you can use to customize your theme extended from Theme.
+AppCompat (such as the colorPrimary attribute shown above). These are
+   
+   
    Heres a list of things you cn customise in your theme
 
 
