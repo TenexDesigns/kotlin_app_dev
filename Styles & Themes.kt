@@ -48,7 +48,24 @@ Then we can change the aspect of the inherited style that we want ot chanh=ge.
          
          
  The same above holds true for even the android default themes. These themses can be inherited and the customised
+To inherit the deefault android themes ,you have to use the parent tag in the style tag and then give the name of the default theme that you want to customize
          
+
+
+             <style name="MyStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+   
+   Then you can point which as pects of this inherited parent style you want to change 
+    <style name="Theme.Tenex" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_200</item>
+//        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+//        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+   
+       </style>
+
+
          
          
          
