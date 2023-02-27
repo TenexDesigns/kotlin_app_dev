@@ -64,6 +64,14 @@ To inherit the deefault android themes ,you have to use the parent tag in the st
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
    
        </style>
+   
+   
+   
+   Also ther is a reason for using and extending the default theemes using the parent attribute. This is so as to ensure backward compatibility
+When creating your own customised styles, you should always extend an existing style from the framework or support library so that you maintain compatibility with platform UI styles. 
+To extend a style, specify the style you want to extend with the parent attribute. 
+You can then override the inherited style attributes and add new ones.
+
 
 
          
