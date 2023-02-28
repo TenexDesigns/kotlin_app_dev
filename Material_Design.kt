@@ -26,3 +26,22 @@ ASSET SHARPNESS / CRISPNESS
 Nor mally it is good to provide assets for the for major density buckets .
 But instaetd ,you can provide assets for the XXHDPI  or XHDPI and let android scale them down.
 Now android is not suited for down scalling but you can create icons for these density buckets from the ANDROID ASSETS STUDDIO// https://romannurik.github.io/AndroidAssetStudio/ 
+
+
+
+STATE LISTS 
+
+This give condtions to  be implememted when a state is true
+e.g for a check button
+
+//This puts a  graphic image if the state of the check box is pressed.
+<slector>
+  <item android:state_pressed = true"
+         android:drwable="checked">
+<selector/>  
+  Thre are many diffrent types of states e.g
+e.g selected 
+focused 
+checked 
+pressed
+YOU CAN EVEN MAKE YOUR OWN states 
