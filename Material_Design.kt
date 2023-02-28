@@ -68,3 +68,65 @@ YOU CAN EVEN MAKE YOUR OWN states
         <item name="android:windowBackground">@color/black</item> // Controls color of the window background
   
     </style>
+ 
+COLOR THEME CREATION
+
+Material Design comes designed with a built-in, baseline theme that can be used as-is, straight out of the proverbial box.
+
+This includes default colors for:
+
+Primary and secondary colors
+Variants of primary and secondary colors
+Additional UI colors, such as colors for backgrounds, surfaces, errors, typography, and iconography.
+All of these colors can be customized for your app.
+
+There are colors e.g for
+
+primary
+primaryVariant
+Secondary
+SecondaryVariant
+background
+surface
+error
+onPrimary
+onSecondary
+onBackground
+onSurface
+onError
+
+****************************** PRIMARY COLOR ***************************
+ 
+Primary color
+
+A primary color is the color displayed most frequently across your app’s screens and components.
+Your primary color can be used to make a color variants
+
+Distinguish UI elements
+To create contrast between UI elements, such as a top app bar from a system bar, you can use light or dark variants of your primary colors.
+You can also use these to distinguish elements within a component, such as the icon of a floating action button from its circular container.
+e.g whatsapp and its floating action bar. llok at the image example in this reposorty for whatsappImage-screenshot for an example of the above. 
+
+
+
+
+
+
+  
+  
+  
+  COLOR PALETTE : Tinting Widgets
+
+Ripple Effect
+
+The rippe effect color is inherited fom the colorAccent
+How ever if you want to set your own custom color then use the colorConterolHighlight attribute.
+The riiple effect can be seen on buttons ,checkboxes and radiobuttons.
+
+e.g chekbox abd radio button
+selected                             Not selected
+colorControlActivated                colorControlNormal         --> If this colors are not defined then the colorAccent is used.
+
+  
+  
+  
