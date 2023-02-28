@@ -45,3 +45,26 @@ focused
 checked 
 pressed
 YOU CAN EVEN MAKE YOUR OWN states 
+
+
+
+
+
+
+
+
+
+
+
+    <style name="Theme.Tenex" parent="Theme.MaterialComponents.Light.DarkActionBar">
+      
+         //Primary brand color. -->
+        // This controls the color of the Action bar ,buttons-->
+      For refernce on what controls what color --> Go tho then color-i color-is and color-image files in this repisototy as they have explantions for the above.
+
+        <item name="colorPrimary">@color/teal_700</item> // Controls color of Appbar /toolbar buttons
+        <item name="colorPrimaryDark">@color/red</item>// Controls color of Status bar
+        <item name="colorAccent">@color/purple_200</item>// Controls color of active or selected widgets or views e,g checkbox
+        <item name="android:windowBackground">@color/black</item> // Controls color of the window background
+  
+    </style>
