@@ -108,6 +108,41 @@ You can also use these to distinguish elements within a component, such as the i
 e.g whatsapp and its floating action bar. llok at the image example in this reposorty for whatsappImage-screenshot for an example of the above. 
 
 
+****************************** SECONDARY COLOR ***************************
+  
+Secondary color
+
+A secondary color provides more ways to accent and distinguish your product.
+Having a secondary color is optional, and should be applied sparingly to accent select parts of your UI.
+
+If you don’t have a secondary color, your primary color can also be used to accent elements.
+
+Secondary colors are best for:
+
+Floating action buttons
+Selection controls, like sliders and switches
+Highlighting selected text
+Progress bars
+Links and headlines
+
+
+Just like the primary color, your secondary color can have dark and light variants.
+A color theme can use your primary color, secondary color, and dark and light variants of each color.
+
+
+****************************** SURFACE , BACKGROUND AND ERROR COLORS ***************************
+
+Surface, background, and error colors typically don’t represent brand:
+
+SURFACE COLORS - affect surfaces of components, such as cards, sheets, and menus.
+THE BACKGROUND COLOR - appears behind scrollable content.
+ERROR COLOR - indicates errors in components, such as invalid text in a text field. 
+Check the surface_background_errors image for a more visual refernce in this pepisitory.
+
+
+
+
+  
 
 
 
