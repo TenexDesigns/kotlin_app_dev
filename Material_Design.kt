@@ -142,6 +142,23 @@ Check the surface_background_errors image for a more visual refernce in this pep
 
 
 
+****************************** TYPOGRAPHY AND ICONOGRAPHY COLORS ***************************
+  These are the "ON COLORS" e.g -->  onPrimary, onSecondary, onError, onSurface, onBackground
+
+This category of colors is called “on” colors, referring to the fact that they color elements that appear “on” top of surfaces 
+that use the following colors: a primary color, secondary color, surface color, background color, or error color.
+
+When a color appears “on” top of a primary color, it’s called an “on primary color.” 
+They are labelled using the original color category (such as primary color) with the prefix “on.”
+“On” colors are primarily applied to text, iconography, and strokes.
+The default values for “on” colors are #FFFFFF and #000000. but you can change this and apply your own custom colors.
+
+Check an image example of the ON Colors on the image on this repisotiry called  -->ON_COLORS
+
+
+
+
+
   
 
 
