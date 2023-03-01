@@ -31,8 +31,10 @@ WHEN WE USE THE TOOL BAE ,WE USE IT A VIEW GROUP
 To get started with the tool bar we have to set it in the activity we want it to appear
 We have to put it in thx xml of the activty we want the toool bar to appear.
 We instanciate the tool bar by using the foolowing tag   <androidx.appcompat.widget.Toolbar>
-
+We can define the toolbar as a layoutfile of the menu type and in it we define , what we want to be dispalyed
   
+
+  ACTIVITY FILE.xml
   // THIS IS THE XML FILE OF THE ACTIVITY WE WANT OUR APP BAR TO APPEAR
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -57,8 +59,123 @@ We instanciate the tool bar by using the foolowing tag   <androidx.appcompat.wid
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-We can define the toolbar as a layoutfile of the menu type and in it we define , what we want to be dispalyed
-In the tool bar we can disp
+   *************** OR **************
+  
+  We can declare our toolbar in a differnt layout file and then include it in our acivit file e.g
+
+********************* Different layout file where we declared our app bar *******
+  App_bar.xml
+  <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+  
+// This is where we declare our app bar.
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/teal_700"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.appcompat.widget.Toolbar>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+  
+  
+  ******************* OUR ACTIVITY FILE *************
+  
+  <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  // This is where we call the file we declared our app bar and include it in our xml file for our activty.
+    <include
+        android:id="@+id/layout"
+        layout="@layout/items"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+  
+  
+  
+  
+  // NOW WE WANT TO POPULATE THE TOOLBAR WITH ICONS AND A POP UP MENU
+  
+  To do this we have to define a menu layout xml file 
+In this file we define icons and the names for this items.
+If the  showActions type of the item is "always " . Then it will be displayed on the action bar as an icon ,but without the name
+If the  showActions type of the item is "never " . Then it will be shown in the menu item will be shown in the pop up menu .The name will be displayed in the pop up menu insteda of an icon.
+The pop up brought to view by clicking the three verticaly stacked button at the far right of the toolbar.
+
+  
+  
+  <?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id ="@+id/menu0"
+        android:icon="@drawable/icon"
+        android:title="Save1"
+        app:showAsAction="never">       ************* ITS NAME WILL BE SEEN ON THE POP UP MENU as NAME ONLY ,WITHOUT ICON **************
+
+    </item>
+
+    <item
+        android:id ="@+id/menu1"
+        android:icon="@drawable/icon"
+        android:title="Save2"
+        app:showAsAction="always">       ************* ITS ICON WILL BE SEEN ON TOOL BAR **************
+
+    </item>
+
+    <item
+        android:id ="@+id/menu2"
+        android:icon="@drawable/icon"
+        android:title="Save3"
+        app:showAsAction="always">       ************* ITS ICON WILL BE SEEN ON TOOL BAR **************
+
+    </item>
+
+    <item
+        android:id ="@+id/menu3"
+        android:icon="@drawable/icon"
+        android:title="Save4"
+        app:showAsAction="always">        ************* ITS ICON WILL BE SEEN ON TOOL BAR **************
+
+    </item>
+
+    <item
+        android:id ="@+id/menu4"
+        android:icon="@drawable/icon"
+        android:title="Save5"
+        app:showAsAction="never">       ************* ITS NAME WILL BE SEEN ON THE POP UP MENU as NAME ONLY ,WITHOUT ICON **************
+
+    </item>
+
+</menu>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
