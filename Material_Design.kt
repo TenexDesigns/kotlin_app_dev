@@ -125,7 +125,12 @@ Highlighting selected text
 Progress bars
 Links and headlines
 
+ ************ACCESSIBLE COLORS ********
 
+To ensure an accessible background behind light or dark text, your background can use light or dark variants
+of your primary and secondary colors.
+
+Alternatively, these colors can be used for typography that appears in front of light and dark backgrounds.
 Just like the primary color, your secondary color can have dark and light variants.
 A color theme can use your primary color, secondary color, and dark and light variants of each color.
 
@@ -154,6 +159,27 @@ They are labelled using the original color category (such as primary color) with
 The default values for “on” colors are #FFFFFF and #000000. but you can change this and apply your own custom colors.
 
 Check an image example of the ON Colors on the image on this repisotiry called  -->ON_COLORS
+
+PRINCIPLES FOR COLORS---->
+  
+HIERARCHICAL
+Color indicates which elements are interactive,
+how they relate to other elements, and their
+level of prominence. 
+Important elements should stand out the most.
+
+
+LEGIBLE
+Text and important elements, like icons,
+should meet legibility standards when appearing
+on colored backgrounds.
+
+Expressive
+Show brand colors at memorable 
+moments that reinforce your brand’s style.
+
+
+  
 
 
 
