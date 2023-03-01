@@ -164,6 +164,50 @@ The pop up brought to view by clicking the three verticaly stacked button at the
     </item>
 
 </menu>
+  
+  
+  
+  Now to populate our toolbar with the above menu items or icons we use
+This inflates the toolbar with the icons or names of items in the ppop up menu.
+ toolbar.inflateMenu(R.menu.menu_main)
+ 
+ 
+ This is seen like this in the activity menu.
+
+// class ToolActivity : AppCompatActivity() {
+
+//     override fun onCreate(savedInstanceState: Bundle?) {
+//         super.onCreate(savedInstanceState)
+//         setContentView(R.layout.tool_activity)
+        var toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar2)
+
+        toolbar.setTitle("Stand up")                              // Here we set the titl of the app bar
+        toolbar.setNavigationIcon(R.drawable.icon)  // Here we set the ico for the naviagtion Icon ...e.g To go back
+        toolbar.inflateMenu(R.menu.menu_main)  //Here we put the items we had in the menu in the  toolbar.
+
+
+
+Now we have to set the onClick listent on the tool bar for each of the items on it
+// class ToolActivity : AppCompatActivity() {
+
+//     override fun onCreate(savedInstanceState: Bundle?) {
+//         super.onCreate(savedInstanceState)
+//         setContentView(R.layout.tool_activity)
+//         var toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar2)
+
+//         toolbar.setTitle("Stand up")
+//         toolbar.setNavigationIcon(R.drawable.icon)
+           toolbar.inflateMenu(R.menu.menu_main)
+
+        toolbar.setOnMenuItemClickListener {  // Here we set the onClik listener for each of the items on our menu.
+
+
+         
+
+
+            return true
+
+        }
 
 
 
