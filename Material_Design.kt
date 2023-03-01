@@ -195,6 +195,35 @@ moments that reinforce your brand’s style.
   
   COLOR PALETTE : Tinting Widgets
 
+************ BUTTON COLORS ***********
+  
+The color of the button is controlled by the attribute colorButtonNormal. Use this to set your desired color e.g
+in the theme styles folder
+
+   <style>
+  
+    <item name="colorButtonNormal"> #000000<item/>
+  
+  
+  <style/>
+  
+  This makes the color of all buttons to be black.
+
+*************** SELECTED RADIO BUTTON/CHECKBOX/ RATTING START *************
+
+The color of the selected item can be controlled using the  colorControlActivitated attribute
+in the theme styles folder
+
+   <style>
+  
+    <item name="colorButtonNormal"> #000000<item/>
+  
+  
+  <style/>
+  This make the color of the checkbox to be balck when selected.
+
+
+
 Ripple Effect
 
 The rippe effect color is inherited fom the colorAccent
