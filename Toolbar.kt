@@ -209,6 +209,40 @@ Now we have to set the onClick listent on the tool bar for each of the items on 
 
         }
 
+        
+       CUSTOMISING TOOL BAR AND THE POP UP MENU
+
+
+To customise our tool bar we have to give it a theme. We also have to give out pop up menu its own theme
+In the styles file we code the style themes to be applied on the popup menu and the tool bar separately.
+
+
+
+This is the theme for the toolbar 
+    <style name="ToolbarTheme" parent="Theme.AppCompat.Light">
+
+        <item name="android:textColorPrimary">@android:color/holo_green_light</item>
+        // This is the color of the toolbar title
+
+
+        <item name="android:textColorSecondary">@color/purple_500</item>
+    // This is the color of the Overflow Menu (3 dots icon)
+    //and color of the Navigation Drawer icon
+    </style>
+  
+  This is the theme for the pop up menu.
+        
+  
+  
+      <style name="PopUpTheme" parent="Theme.AppCompat.Light">
+
+        <item name="android:background">@android:color/holo_green_light</item>
+        // This is the color of the background on which the toolbar items will be displayed 
+
+
+        <item name="android:textColorPrimary">@color/purple_500</item>
+    //This is the color of the text on the items on the pop up menu
+    </style>
 
 
 
