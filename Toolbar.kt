@@ -243,6 +243,14 @@ This is the theme for the toolbar
         <item name="android:textColorPrimary">@color/purple_500</item>
     //This is the color of the text on the items on the pop up menu
     </style>
+  
+  
+  
+  
+  
+  ******************** CONTEXTUAL MENU IN TOOLBAR ***************
+  
+  This contextual menu in tool bar is displayed when you long press an item ...E.g whats app ..Look at the contextMenu image in this repisotory for a visual example.
 
 
 
