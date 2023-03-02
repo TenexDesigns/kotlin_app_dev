@@ -48,6 +48,8 @@ Drwarebal folder -- file name custom_boredere_ripple.xml
 
 
 Unboinded ripple effect
+Drwarebal folder -- file name custom_Unboredere_ripple.xml
+
 
 For an unbounded ripple effect we dont include an iten within the ripple tags with the id of mask
 
@@ -57,6 +59,33 @@ For an unbounded ripple effect we dont include an iten within the ripple tags wi
       android:color="@color_Green"  >  This is whre we declaer the color of our ripple effect
 
 <ripple/>
+  
+  
+  
+  To see the custom additions we have done to our ripple effect on our desired view ,we have to refer to this files 
+where we have described our custom ripple effects in the drawerbal folder.
+
+For our Bordered Custom rippple effect
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="204dp"
+        android:layout_height="78dp"
+        android:background="@drawerbal/cutom_border_riiple">
+  
+  
+  For our UnBordered Custom rippple effect
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="204dp"
+        android:layout_height="78dp"
+        android:background="@drawerbal/cutom_Unborder_riiple">
+  
+  
+  By default the ripple effect has a grey color . To change the default ripple color you have to change the android:colorControlHighligt in the theme file.
+
+
   
   
 
