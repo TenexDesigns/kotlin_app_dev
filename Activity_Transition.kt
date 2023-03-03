@@ -88,3 +88,232 @@ startActivity(intent,options.bundle())  // This is what implements the intent to
 
 
 
+CIRCULAR REVEAL TRANSITION
+
+Provides viula continuity to show or hide the ui elemnents
+Enables to animate circle elemnts when clicked to reveal or hide a view.
+
+
+First find which view will start the animation when clicked 
+
+val text = findViewById(R.id.text)
+next find the center of the sccrreeen
+
+val centerX = (view.getLeft() + view.getRight() )/2
+val centerY = (view.getTop() + view.getBottom() )/2
+
+
+val radious = ( MAth.max(text.getWidth(),text.getHerifght()) ) *2.0f here we calculate the radious to which the view  will extend to
+
+// This is where we  set the visibility of the txt field to be seen and the text to be displayed
+if(text.getVisibility() == view.INS=VISIBLE){
+ 
+    text.setVisibility(view.VISIBLE)
+    text.setText("Helllow")
+    
+    
+    viewAnimationUtils.createCircularReveal(text, centerX,centerY,0,radius).start()   ./ This strats the animation from the center 0 all throught the radius assigned up to the sided=s X and Y 
+
+
+
+}
+else {
+ // THIS RETRACTS THE ANIMATIO AND HIDES THE TEXT
+ 
+reveal =  viewAnimationUtils.createCircularReveal(text, centerX,centerY,0,radius)   ./ This retracts the animation from the center 0 all throught the radius assigned up to the sided=s X and Y 
+  text.setVisibility(text.INVISIBLE)
+
+
+
+}
+
+
+ENTER AND EXIT ACTIVITY TRANSITIONS
+
+ENTER TRANSITIONS - Determines how views in an activity enters
+EXIT TRANSITION = Determines how views in an activity exits
+
+
+Thers transitions can be categorised into
+
+Explode transition
+Slide transition
+Fade transition
+
+
+
+EXPLODE TRANSITION
+
+Views move to center of screen when one enters into an activity
+and views move away from the center when an activity is moved out of or exited
+
+There are two ways to carry out this transtions .
+Either by code or by xml
+
+We are going to focus on the xml side
+
+In a transition folder in the resource file
+
+
+TransitionExplode.xml
+<transtionset>
+ 
+     <explode  
+             android:duration ="1000"
+             android:interpolation ="@android:interpolation/bounce "  ---> Describes the type of animation to beused
+ 
+ 
+ <transitionset>
+ 
+ 
+ In the main activty
+
+buttomn.setOnClickListener{
+ 
+ options = ActivityOptions.makeSceneTranstions(this)
+ intent = Intent(mainactivity.this,SecondeActivity::class.java)
+ intent.putExtra(constant.Explode,constants.TransityionType.TransitionExplodexmlFile)
+stratActivirt(intent,optinons) 
+ 
+
+
+
+
+}
+
+
+Now in the Seconde activity that we will be transiting to
+
+class SecondActivity : Appcompact(){
+ 
+Oncreate{
+val  entertransition = TransitionInflater.from(this).inflateTransition(R.transition.Transitionexploedde.xml)
+getWindow().setEnterTransition(enterTranstion)
+
+
+}
+}
+
+
+
+
+SLIDE TRANSTION
+
+Moves views in or out from the activiyt from one of the edges of the scene
+We create a new file in the resource folde and give that file th name of
+slideTransition
+
+<transtionset
+ 
+     <slide 
+             android:duration ="1000"
+             android:slideEdge="right"
+ 
+ 
+ <transitionset>
+ 
+ 
+ In the main activty
+
+buttomn.setOnClickListener{
+ 
+ options = ActivityOptions.makeSceneTranstions(this)
+ intent = Intent(mainactivity.this,SecondeActivity::class.java)
+ intent.putExtra(constant.Explode,constants.TransityionType.SlideTranstion)
+stratActivirt(intent,optinons) 
+ 
+
+
+
+
+}
+
+
+Now in the Seconde activity that we will be transiting to
+
+class SecondActivity : Appcompact(){
+ 
+Oncreate{
+ 
+val  entertransition = TransitionInflater.from(this).inflateTransition(R.transition.SlideTranstion.xml)
+ getWindow().setEnterTransition(enterTranstion)
+
+
+}
+}
+
+
+
+FADE TRANSTION
+
+ This adds or removes a view from the scene by changing its opacity. It will just fade out or fade into the screen 
+
+We create a new file in the resource folde and give that file th name of
+FadeTransition
+
+<transtionset
+ 
+     <fade
+             android:duration ="1000"
+             android:slideEdge="right"
+ 
+ 
+ <transitionset>
+ 
+ 
+ In the main activty
+
+buttomn.setOnClickListener{
+ 
+ options = ActivityOptions.makeSceneTranstions(this)
+ intent = Intent(mainactivity.this,SecondeActivity::class.java)
+ intent.putExtra(constant.Explode,constants.TransityionType.SlideTranstion)
+stratActivirt(intent,optinons) 
+ 
+
+
+
+
+}
+
+
+Now in the Seconde activity that we will be transiting to
+
+class SecondActivity : Appcompact(){
+ 
+Oncreate{
+ 
+val  entertransition = TransitionInflater.from(this).inflateTransition(R.transition.SlideTranstion.xml)
+ getWindow().setEnterTransition(enterTranstion)
+
+
+}
+}
+
+
+
+AFTER EXCUTING THIS TRANSIOTONS TO THIS ACTIVITYS ,wE MAY WNAT TO GO BACK TO THE MAINACTIVITY
+
+Main activity
+
+
+class mainActivity:Appcompact(){
+
+
+getWindew.setReenterTrastion(SlideTranstion) // This sets the renentering transtion animation
+getWindow().setAllowTranstionOverlap(fasles) // This prevents overlap of transtion s
+
+}
+
+
+
+
+
+
+
+ 
+
+
+
+
+
